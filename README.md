@@ -7,9 +7,18 @@ The **Dessert Classification** project aims to classify images of popular desser
 1. **Training a custom Vision Transformer (ViT) model from scratch.**
 2. **Fine-tuning a pre-trained Vision Transformer (ViT) model from `torchvision`.**
 
-## 2. Highlights
+### 1.1. Highlights
 
 - Classifying five different types of desserts.
 - Exploring two training techniques: from-scratch and fine-tuning.
 - Using a custom built vision transformer model for training from scratch.
 - Explore the training results for both the techniques.
+
+---
+
+- [Dessert Classification](#dessert-classification)
+  - [1. Introduction](#1-introduction)
+    - [1.1. Highlights](#11-highlights)
+
+---
+
