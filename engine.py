@@ -165,7 +165,7 @@ def train(num_epochs: int,
     results = {
             'train_loss': [],
             'train_acc': [],
-            'train_loss': [],
+            'test_loss': [],
             'test_acc': []
     }
     

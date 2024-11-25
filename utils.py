@@ -4,7 +4,7 @@ import torch
 from torch.utils import tensorboard
 
 from pathlib import Path
-import datetime
+from datetime import datetime
 
 def create_writer(model_name: str,
                   experiment_name: str) -> tensorboard.writer.SummaryWriter:
