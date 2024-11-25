@@ -178,8 +178,12 @@ class ViT(torch.nn.Module):
                          ratio_hidden_mlp=ratio_hidden_mlp) for _ in range(num_encoder_blocks)
         ])
         
-        self.classifier = torch.nn.Linear(in_features=embed_dims,
-                                          out_features=out_dims)
+        self.classifier = torch.nn.Sequential(
+            torch.nn.Linear(in_features=embed_dims,
+                            out_features=ratio_hidden_mlp*embed_dims),
+            torch.nn.Linear(in_features=ratio_hidden_mlp*embed_dims,
+                            out_features=out_dims)
+        )
         
     def forward(self, x):
         x = self.data_embeddings(x)
