@@ -175,8 +175,8 @@ class ViT(torch.nn.Module):
         self.encoder_blocks = torch.nn.Sequential(*[
             EncoderBlock(embed_dims=embed_dims,
                          num_attn_heads=num_attn_heads,
-                         ratio_hidden_mlp=ratio_hidden_mlp) for _ in range(num_encoder_blocks)
-        ])
+                         ratio_hidden_mlp=ratio_hidden_mlp) for _ in range(num_encoder_blocks)],
+            torch.nn.LayerNorm(embed_dims))
         
         self.classifier = torch.nn.Sequential(
             torch.nn.Linear(in_features=embed_dims,
