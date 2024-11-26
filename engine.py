@@ -1,5 +1,6 @@
 import torch
 import torchmetrics
+import torch.utils.tensorboard
 
 from tqdm.auto import tqdm
 

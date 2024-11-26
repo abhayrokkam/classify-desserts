@@ -21,6 +21,8 @@ The **Dessert Classification** project aims to classify images of popular desser
     - [1.1. Highlights](#11-highlights)
   - [2. Training and Fine-tuning](#2-training-and-fine-tuning)
     - [2.1. Hyperparameters](#21-hyperparameters)
+      - [2.1.1. Model Hyperparameters](#211-model-hyperparameters)
+      - [2.1.2. Training Hyperparameters](#212-training-hyperparameters)
     - [2.2. Difference In Model Architecture](#22-difference-in-model-architecture)
       - [2.2.1. Training from Scratch](#221-training-from-scratch)
       - [2.2.2. Fine-tuning](#222-fine-tuning)
@@ -33,9 +35,10 @@ The **Dessert Classification** project aims to classify images of popular desser
 
 In this project, we leverage the Vision Transformer (ViT) architecture, specifically the ViT-B/16 model. This variant uses a patch size of 16, which is the most basic configuration described in the original [Dosovitskiy et. al.](https://arxiv.org/abs/2010.11929) paper on Vision Transformers.
 
-Below are the key hyperparameters for the ViT-B/16 model:
+#### 2.1.1. Model Hyperparameters
 
 ```python
+
 # Hyperparameters for the ViT-B/16 model
 PATCH_SIZE = (16, 16)  # Size of each image patch
 NUM_PATCHES = 196      # Total number of patches (height / patch_size) * (width / patch_size)
@@ -48,6 +51,25 @@ NUM_ENC_BLOCKS = 12    # Number of encoder blocks in the transformer
 ```
 
 These hyperparameters define the core structure and functionality of the Vision Transformer used in this project. `EMBED_DIMS` corresponds to the embedding dimension, while `NUM_ATTN_HEADS` defines the number of attention heads used in each transformer block. The `RATIO_HIDDEN_MLP` controls the size of the hidden layer in the classifier, and `NUM_ENC_BLOCKS` specifies how many transformer blocks are used in the encoder part of the model.
+
+#### 2.1.2. Training Hyperparameters
+
+```python
+
+# Training Hyperparameters
+if training_from_scratch:
+  NUM_EPOCHS = 50          # Higher epochs to allow the model to learn patterns from scratch
+  LEARNING_RATE = 0.01     # Higher learning rate for faster convergence during initial training
+
+elif finetuning:
+  NUM_EPOCHS = 10          # Fewer epochs, as the model is already pre-trained and requires less training
+  LEARNING_RATE = 0.001    # Lower learning rate for slower, finer adjustments during fine-tuning
+
+```
+
+- When training from scratch, we set a higher number of epochs `NUM_EPOCHS = 50` to ensure the model has enough time to learn the underlying patterns in the data. The learning rate `LEARNING_RATE = 0.01` is kept higher for faster convergence.
+
+- For fine-tuning a pre-trained model, fewer epochs `NUM_EPOCHS = 10` are sufficient, as the model already knows general patterns. A lower learning rate `LEARNING_RATE = 0.001` is used to allow the model to make smaller adjustments for better performance on the new task.
 
 ### 2.2. Difference In Model Architecture
 
