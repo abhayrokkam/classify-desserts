@@ -23,7 +23,6 @@ NUM_ATTN_HEADS = 12
 RATIO_HIDDEN_MLP = 4
 NUM_ENC_BLOCKS = 12
 
-## Default values
 NUM_EPOCHS = 5
 LEARNING_RATE = 0.001
 
@@ -66,9 +65,8 @@ for model_name in model_names:
                     ratio_hidden_mlp=RATIO_HIDDEN_MLP,
                     num_encoder_blocks=NUM_ENC_BLOCKS)
         
-        # Hyperparameters
+        # Training hyperparameter
         NUM_EPOCHS = 50
-        LEARNING_RATE = 0.01
 
     elif model_name == 'vit_finetune':
         # Model to train
@@ -82,18 +80,17 @@ for model_name in model_names:
         for param in model.conv_proj.parameters():
             param.requires_grad = False
         for param in model.encoder.parameters():
-                param.requires_grad = False
+            param.requires_grad = False
         
-        # Hyperparameters
+        # Training hyperparameter
         NUM_EPOCHS = 10
-        LEARNING_RATE = 0.001
     
     # Optimizer
     optimizer = torch.optim.Adam(params=model.parameters(), lr=LEARNING_RATE)
     
     # Writer (tensorboard)
     writer = create_writer(model_name=model_name,
-                            experiment_name=str(model_name) + "_" + str(LEARNING_RATE))
+                            experiment_name="model_" + str(model_name) + "_epochs_" + str(NUM_EPOCHS) + "_lr_" + str(LEARNING_RATE))
     
     # Train
     results = train(num_epochs=NUM_EPOCHS,
@@ -115,4 +112,4 @@ for model_name in model_names:
     del model
     torch.cuda.empty_cache()
     
-    print("-"*50 + '\n')
+    print("-"*100 + '\n')
